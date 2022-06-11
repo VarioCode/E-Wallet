@@ -1,6 +1,8 @@
 package com.example.e_wallet.ui.login;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.content.SharedPreferences;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import android.os.Bundle;
@@ -18,9 +20,8 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.e_wallet.R;
-import com.example.e_wallet.ui.login.LoginViewModel;
-import com.example.e_wallet.ui.login.LoginViewModelFactory;
+import com.example.e_wallet.HomeScreenScroll;
+import com.example.e_wallet.data.UserData;
 import com.example.e_wallet.databinding.ActivityLoginBinding;
 
 public class LoginActivity extends AppCompatActivity {
@@ -63,7 +64,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable LoginResult loginResult) {
                 if (loginResult == null) {
-                    return;
+                    Toast.makeText(getApplicationContext(), "Something went wrong", Toast.LENGTH_LONG).show();
                 }
                 loadingProgressBar.setVisibility(View.GONE);
                 if (loginResult.getError() != null) {
@@ -72,10 +73,10 @@ public class LoginActivity extends AppCompatActivity {
                 if (loginResult.getSuccess() != null) {
                     updateUiWithUser(loginResult.getSuccess());
                 }
-                setResult(Activity.RESULT_OK);
+//                setResult(Activity.RESULT_OK);
 
                 //Complete and destroy login activity once successful
-                finish();
+//                finish();
             }
         });
 
@@ -113,6 +114,11 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+
+
+                UserData.setUsername((String) usernameEditText.getText().toString());
+
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
@@ -121,12 +127,17 @@ public class LoginActivity extends AppCompatActivity {
     }
 
     private void updateUiWithUser(LoggedInUserView model) {
-        String welcome = getString(R.string.welcome) + model.getDisplayName();
-        // TODO : initiate successful logged in experience
-        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+//        String welcome = getString(R.string.welcome) + " " + model.getDisplayName();
+//        // TODO : initiate successful logged in experience
+//        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
+        finish();
+        Intent startUp = new Intent(this, HomeScreenScroll.class);
+        startActivity(startUp);
+
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {
         Toast.makeText(getApplicationContext(), errorString, Toast.LENGTH_SHORT).show();
+//        Snackbar.make(, "Login Failed", Snackbar.LENGTH_LONG);
     }
 }
