@@ -37,6 +37,7 @@ public class HomeScreenScroll extends AppCompatActivity {
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
 
         toolBarLayout.setTitle("Dashboard");
+        toolbar.setTitle("Dashboard");
 
         FloatingActionButton fab = binding.fab;
         fab.setOnClickListener(new View.OnClickListener() {
