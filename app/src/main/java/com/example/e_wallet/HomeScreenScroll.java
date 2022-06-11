@@ -5,6 +5,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 import com.example.e_wallet.data.UserData;
 import com.example.e_wallet.ui.login.LoginActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -41,20 +42,23 @@ public class HomeScreenScroll extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "Logging out", Snackbar.LENGTH_LONG)
-//                        .setAction("Dismiss", null).show();
-                try {
-                    TimeUnit.SECONDS.sleep(2);
-                } catch (Exception e) {
-                }
+                Snackbar.make(view, "This function is under development", Snackbar.LENGTH_LONG)
+                        .setAction("Action", null).show();
+            }
+        });
+
+        FloatingActionButton fab2 = binding.fab2;
+        fab2.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
                 logOut();
+                finish();
             }
         });
 
     }
 
     private void logOut() {
-        finish();
         Intent startUp = new Intent(this, LoginActivity.class);
         startActivity(startUp);
 
