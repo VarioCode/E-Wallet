@@ -62,6 +62,7 @@ public class HomeScreenScroll extends AppCompatActivity {
     private void logOut() {
         Intent startUp = new Intent(this, LoginActivity.class);
         startActivity(startUp);
+        Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
     }
 }
