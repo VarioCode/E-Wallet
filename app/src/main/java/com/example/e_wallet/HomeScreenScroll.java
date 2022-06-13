@@ -4,10 +4,15 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.text.InputType;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.appcompat.app.AlertDialog;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 import com.example.e_wallet.data.UserData;
 import com.example.e_wallet.ui.login.LoginActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -34,9 +39,22 @@ public class HomeScreenScroll extends AppCompatActivity {
         binding = ActivityScrollingBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
 
+        LinearLayout linearLayout = (LinearLayout) findViewById(R.id.linearLayout);
+
         Toolbar toolbar = binding.toolbar;
         setSupportActionBar(toolbar);
         CollapsingToolbarLayout toolBarLayout = binding.toolbarLayout;
+
+        CardView cardView = (CardView) findViewById(R.id.card_view);
+        cardView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+//                Toast.makeText(HomeScreenScroll.this, "Test click", Toast.LENGTH_SHORT).show();
+                finish();
+                Intent OpenWallet = new Intent(HomeScreenScroll.this, Display_EWallet.class);
+                startActivity(OpenWallet);
+            }
+        });
 
         toolBarLayout.setTitle("Dashboard");
         toolbar.setTitle("Dashboard");
@@ -45,16 +63,21 @@ public class HomeScreenScroll extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-//                Snackbar.make(view, "This function is under development", Snackbar.LENGTH_LONG)
-//                        .setAction("Action", null).show();
                 AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenScroll.this);
-                builder.setTitle("Requesting new account");
-                builder.setMessage("This function is under development");
+                builder.setTitle("What should be call it?");
+                builder.setMessage("What is the name of your new wallet?");
+
+                final EditText input = new EditText(getApplicationContext());
+                input.setInputType(InputType.TYPE_CLASS_TEXT);
+                input.setHint("Wallet name");
+
+                builder.setView(input);
                 builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
+                        createWallet(linearLayout);
                         dialogInterface.dismiss();
-                        Snackbar.make(view, "Requested a new account", Snackbar.LENGTH_LONG)
+                        Snackbar.make(view, "Added new wallet", Snackbar.LENGTH_LONG)
                                 .setAction("Action", null).show();
                     }
                 });
@@ -79,5 +102,14 @@ public class HomeScreenScroll extends AppCompatActivity {
         startActivity(startUp);
         Toast.makeText(getApplicationContext(), "Logged out", Toast.LENGTH_SHORT).show();
 
+    }
+
+    private void createWallet(LinearLayout linearLayout) {
+        Snackbar.make(linearLayout, "Feature currently under development", Snackbar.LENGTH_LONG)
+                .setAction("Action", null).show();
+//        RecyclerView rv = (RecyclerView) findViewById(R.id.rv);
+//        LinearLayoutManager llm = new LinearLayoutManager(getApplicationContext());
+//        rv.setLayoutManager(llm);
+//        linearLayout.addView(rv);
     }
 }
