@@ -42,6 +42,7 @@ public class QRScanner_Activity extends AppCompatActivity {
                         finish();
                     }
                 });
+                builder.show();
             }else {
 //                textView.setText(intentResult.getContents());
                 Display_EWallet.setQrValue(intentResult.getContents());

@@ -38,6 +38,7 @@ public class Display_EWallet extends AppCompatActivity {
         tabs.setupWithViewPager(viewPager);
         FloatingActionButton fab = binding.fab;
         FloatingActionButton fab6 = binding.fab6;
+        Snackbar.make(viewPager, "Current QR: " + qr_value, Snackbar.LENGTH_LONG).show();
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -71,7 +72,5 @@ public class Display_EWallet extends AppCompatActivity {
 
     public static void setQrValue(String value) {
         qr_value = value;
-        Snackbar.make(null, "QR Code: " + qr_value, Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show();
     }
 }
