@@ -1,11 +1,13 @@
 package com.example.e_wallet;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+import androidx.appcompat.app.AlertDialog;
 import com.example.e_wallet.data.UserData;
 import com.example.e_wallet.ui.login.LoginActivity;
 import com.google.android.material.appbar.CollapsingToolbarLayout;
@@ -43,8 +45,21 @@ public class HomeScreenScroll extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This function is under development", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+//                Snackbar.make(view, "This function is under development", Snackbar.LENGTH_LONG)
+//                        .setAction("Action", null).show();
+                AlertDialog.Builder builder = new AlertDialog.Builder(HomeScreenScroll.this);
+                builder.setTitle("Requesting new account");
+                builder.setMessage("This function is under development");
+                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        dialogInterface.dismiss();
+                        Snackbar.make(view, "Requested a new account", Snackbar.LENGTH_LONG)
+                                .setAction("Action", null).show();
+                    }
+                });
+                builder.setNegativeButton("Cancel", null);
+                builder.show();
             }
         });
 
