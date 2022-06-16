@@ -1,6 +1,6 @@
 package com.example.e_wallet.data;
 
-import com.example.e_wallet.data.model.LoggedInUser;
+import com.example.e_wallet.qrscanner.model.LoggedInUser;
 
 /**
  * Class that requests authentication and user information from the remote data source and

@@ -1,6 +1,6 @@
 package com.example.e_wallet.data;
 
-import com.example.e_wallet.data.model.LoggedInUser;
+import com.example.e_wallet.qrscanner.model.LoggedInUser;
 
 import java.io.IOException;
 

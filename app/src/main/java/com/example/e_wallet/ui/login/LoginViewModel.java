@@ -7,7 +7,7 @@ import android.util.Patterns;
 
 import com.example.e_wallet.data.LoginRepository;
 import com.example.e_wallet.data.Result;
-import com.example.e_wallet.data.model.LoggedInUser;
+import com.example.e_wallet.qrscanner.model.LoggedInUser;
 import com.example.e_wallet.R;
 
 public class LoginViewModel extends ViewModel {
