@@ -45,8 +45,7 @@ public class Display_EWallet extends AppCompatActivity {
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Snackbar.make(view, "This is a experimental feature!", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                Toast.makeText(Display_EWallet.this, "This is a experimental feature!", Toast.LENGTH_SHORT).show();
                 ActivityCompat.requestPermissions(Display_EWallet.this, new String[]{android.Manifest.permission.CAMERA}, PackageManager.PERMISSION_GRANTED);
                 int perm = ContextCompat.checkSelfPermission(Display_EWallet.this, android.Manifest.permission.CAMERA);
                 if (perm == PackageManager.PERMISSION_GRANTED) {
@@ -75,6 +74,7 @@ public class Display_EWallet extends AppCompatActivity {
         integrator.setCameraId(0);
         integrator.setBeepEnabled(false);
         integrator.setBarcodeImageEnabled(false);
+        integrator.setTimeout(10000);
         integrator.initiateScan();
     }
 
