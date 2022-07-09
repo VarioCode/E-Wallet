@@ -1,6 +1,6 @@
 package com.example.e_wallet.ui.login;
 
-import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import androidx.lifecycle.Observer;
@@ -21,17 +21,26 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.e_wallet.HomeScreenScroll;
-import com.example.e_wallet.data.UserData;
+import com.example.e_wallet.data.DataStore;
 import com.example.e_wallet.databinding.ActivityLoginBinding;
+import com.example.e_wallet.nav.gallery.NavDrawerActivity;
 
 public class LoginActivity extends AppCompatActivity {
 
     private LoginViewModel loginViewModel;
     private ActivityLoginBinding binding;
+    private SharedPreferences sharedPreferences;
+    private SharedPreferences.Editor editor;
+    private Context mContext;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        sharedPreferences = getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
+        editor = sharedPreferences.edit();
+
+        mContext = getApplicationContext();
 
         binding = ActivityLoginBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
@@ -116,11 +125,6 @@ public class LoginActivity extends AppCompatActivity {
         loginButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
-
-
-                UserData.setUsername((String) usernameEditText.getText().toString());
-
                 loadingProgressBar.setVisibility(View.VISIBLE);
                 loginViewModel.login(usernameEditText.getText().toString(),
                         passwordEditText.getText().toString());
@@ -133,8 +137,18 @@ public class LoginActivity extends AppCompatActivity {
 //        // TODO : initiate successful logged in experience
 //        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         finish();
-        Intent startUp = new Intent(this, HomeScreenScroll.class);
-        startActivity(startUp);
+
+        if (model.getDisplayName().equals("admin")) {
+            editor.putString("username", "admin");
+            editor.putString("email", "admin@example.com");
+            editor.commit();
+            Intent intent = new Intent(getApplicationContext(), NavDrawerActivity.class);
+            startActivity(intent);
+        }
+
+
+//        Intent startUp = new Intent(this, NavDrawerActivity.class);
+//        startActivity(startUp);
 
     }
 

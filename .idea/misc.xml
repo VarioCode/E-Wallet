@@ -3,26 +3,58 @@
   <component name="DesignSurface">
     <option name="filePathToZoomLevelMap">
       <map>
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/activity_display_ewallet.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/activity_login.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/activity_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/app_bar_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/content_nav_drawer.xml" value="0.11481481481481481" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/fragment_dashboard.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/fragment_display__e_wallet.xml" value="0.11481481481481481" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/fragment_gallery.xml" value="0.11481481481481481" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/fragment_home.xml" value="0.11481481481481481" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/money_layout.xml" value="0.103596757852077" />
+        <entry key="..\:/Coding/EWallet/app/src/main/res/layout/nav_header_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/activity_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/app_bar_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/content_nav_drawer.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/fragment_gallery.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/fragment_home.xml" value="0.103596757852077" />
+        <entry key="..\:/School/HBO-ICT/Propedeuse/LearnJAVA/EWallet/app/src/main/res/layout/fragment_slideshow.xml" value="0.103596757852077" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/drawable/ic_baseline_add_24.xml" value="0.3645833333333333" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/drawable/ic_launcher_background.xml" value="0.3645833333333333" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout-w1240dp/activity_login.xml" value="0.14089692101740295" />
-        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.11010709504685408" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout-w1240dp/content_scrolling.xml" value="0.1" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout-w936dp/activity_login.xml" value="0.164453125" />
-        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_display_ewallet.xml" value="0.33" />
-        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_login.xml" value="0.21927083333333333" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout-w936dp/content_scrolling.xml" value="0.1" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_display_ewallet.xml" value="0.1" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_login.xml" value="0.25" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_menu_drawer.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_nav_drawer.xml" value="0.33" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_qrscanner.xml" value="0.33" />
-        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_scrolling.xml" value="0.3484375" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_scrolling.xml" value="0.1" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/activity_scrolling2.xml" value="0.3484375" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/app_bar_menu_drawer.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/app_bar_nav_drawer.xml" value="0.18541666666666667" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/content_menu_drawer.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/content_nav_drawer.xml" value="0.2359375" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/content_scrolling.xml" value="0.33" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_dashboard.xml" value="0.3442028985507246" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_display__e_wallet.xml" value="0.5" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_gallery.xml" value="0.17135416666666667" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_home.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_notifications.xml" value="0.3442028985507246" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/fragment_slideshow.xml" value="0.17135416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/money_layout.xml" value="0.25" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/money_scroll.xml" value="0.1" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/nav_header_menu_drawer.xml" value="0.18541666666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/nav_header_nav_drawer.xml" value="0.2359375" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/layout/wallet.xml" value="0.22" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/activity_main_drawer.xml" value="0.2" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/activity_nav_drawer_drawer.xml" value="1.0" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/bottom_nav_menu.xml" value="0.1" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/menu__drawer.xml" value="0.2" />
         <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/menu_scrolling.xml" value="0.23385416666666667" />
+        <entry key="..\:/Users/jmccr/LearnJAVA/EWallet/app/src/main/res/menu/nav_drawer.xml" value="0.2" />
       </map>
     </option>
   </component>

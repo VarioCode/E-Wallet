@@ -4,16 +4,16 @@
         xmlns:tools="http://schemas.android.com/tools"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
-        tools:showIn="@layout/activity_scrolling"
+        tools:showIn="@layout/activity_display_ewallet"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:id="@+id/nestedScrollView"
-        tools:context=".HomeScreenScroll">
+        android:id="@+id/nestedScrollView2"
+        tools:context=".Display_EWallet">
 
     <LinearLayout
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="60dp"
-            android:id="@+id/linearLayout"/>
+            android:id="@+id/linear45"/>
 </androidx.core.widget.NestedScrollView>
