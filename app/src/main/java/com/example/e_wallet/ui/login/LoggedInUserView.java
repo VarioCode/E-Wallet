@@ -1,17 +1,19 @@
 package com.example.e_wallet.ui.login;
 
+import com.example.e_wallet.qrscanner.model.LoggedInUser;
+
 /**
  * Class exposing authenticated user details to the UI.
  */
 class LoggedInUserView {
-    private String displayName;
+    private LoggedInUser user;
     //... other data fields that may be accessible to the UI
 
-    LoggedInUserView(String displayName) {
-        this.displayName = displayName;
+    LoggedInUserView(LoggedInUser user) {
+        this.user = user;
     }
 
-    String getDisplayName() {
-        return displayName;
+    public LoggedInUser getUserData() {
+        return user;
     }
 }

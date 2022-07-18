@@ -9,7 +9,8 @@
 
     <com.google.android.material.appbar.AppBarLayout
             android:layout_height="wrap_content"
-            android:layout_width="match_parent">
+            android:layout_width="match_parent"
+            android:id="@+id/appBarLayout2">
 
         <androidx.appcompat.widget.Toolbar
                 android:id="@+id/toolbar"
@@ -17,12 +18,12 @@
                 android:layout_height="?attr/actionBarSize"
                 android:background="?attr/colorPrimary"
                 android:textColor="@android:color/white"
+                app:collapseIcon="@drawable/ic_menu_white_24dp"
+                app:navigationIcon="@drawable/ic_menu_white_24dp"
                 />
-
     </com.google.android.material.appbar.AppBarLayout>
 
     <include layout="@layout/content_nav_drawer"/>
-
 
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -9,20 +9,18 @@ import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.core.app.ActivityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentManager;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.navigation.NavController;
-import androidx.navigation.NavDestination;
 import androidx.navigation.Navigation;
 import androidx.navigation.ui.AppBarConfiguration;
 import androidx.navigation.ui.NavigationUI;
@@ -30,12 +28,13 @@ import com.example.displaymoney.DisplayMoney;
 import com.example.e_wallet.R;
 import com.example.e_wallet.data.Database;
 import com.example.e_wallet.databinding.ActivityNavDrawerBinding;
+import com.example.e_wallet.nav.gallery.slideshow.SlideshowFragment;
+import com.example.e_wallet.nav.gallery.slideshow.SlideshowViewModel;
 import com.google.android.material.navigation.NavigationView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
 import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Objects;
@@ -47,9 +46,11 @@ public class NavDrawerActivity extends AppCompatActivity {
     private SharedPreferences sharedPreferences;
     private SharedPreferences.Editor editor;
     private Database db;
-    ArrayList<String> results;
-    private ArrayList<DisplayMoney> contents = new ArrayList<>();
-    ConstraintLayout constraintLayout;
+    private ArrayList<String> results;
+    private ConstraintLayout constraintLayout;
+    private GalleryViewModel galleryViewModel;
+    private SlideshowViewModel slideshowViewModel;
+    private int usedButton;
 
 
     @Override
@@ -61,39 +62,25 @@ public class NavDrawerActivity extends AppCompatActivity {
         View root = binding.getRoot();
 
         db = new Database(NavDrawerActivity.this);
-
+        galleryViewModel = new ViewModelProvider(this).get(GalleryViewModel.class);
+        slideshowViewModel = new ViewModelProvider(this).get(SlideshowViewModel.class);
 
 //        results = db.getWalletContents();
 
-//        constraintLayout = findViewById(R.id.constraint_layoutGallery);
-//
-//        for (int i = 0; i < results.size(); i++) {
-//            System.out.println("size: " + results.size());
-//            System.out.println(results.get(i));
-//        }
-//
-//        for (int i = 0; i < results.size(); i = i + 2) {
-//            if (results.get(i) == null || results.get(i + 1) == null) {
-//                System.out.println("result is null...VALUE: " + results.get(i));
-//                continue;
-//            }
-//            System.out.println(results.get(i));
-//            System.out.println(results.get(i + 1));
-//            DisplayMoney displayMoney = new DisplayMoney(results.get(i), Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_gallery)));
-//            displayMoney.setAmount(results.get(i + 1));
-//            constraintLayout.addView(displayMoney.getView());
-//            contents.add(displayMoney);
-//        }
-
-
         sharedPreferences = getApplicationContext().getSharedPreferences("MyUserPrefs", Context.MODE_PRIVATE);
 
-        setSupportActionBar(binding.appBarNavDrawer.toolbar);
+        Toolbar toolbar = binding.appBarNavDrawer.toolbar;
+        toolbar.setTitleTextColor(getResources().getColor(R.color.white));
+        toolbar.setCollapseIcon(getResources().getDrawable(R.drawable.ic_menu_white_24dp));
+        toolbar.setNavigationIcon(getResources().getDrawable(R.drawable.ic_menu_white_24dp));
+        toolbar.setOverflowIcon(getResources().getDrawable(R.drawable.ic_baseline_more_vert_24));
+
+        setSupportActionBar(toolbar);
 
         DrawerLayout drawer = binding.drawerLayout;
         NavigationView navigationView = binding.navView;
         View headerView = navigationView.getHeaderView(0);
-
+        
         TextView username = (TextView) headerView.findViewById(R.id.UserNameDisplay);
         username.setText(sharedPreferences.getString("username", ""));
 
@@ -105,7 +92,7 @@ public class NavDrawerActivity extends AppCompatActivity {
                 R.id.nav_home, R.id.nav_gallery, R.id.nav_slideshow)
                 .setOpenableLayout(drawer)
                 .build();
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
+        NavController navController = Navigation.findNavController(this, R.id.content_nav_drawer_fragment);
         NavigationUI.setupActionBarWithNavController(this, navController, mAppBarConfiguration);
         NavigationUI.setupWithNavController(navigationView, navController);
     }
@@ -119,91 +106,12 @@ public class NavDrawerActivity extends AppCompatActivity {
 
     @Override
     public boolean onSupportNavigateUp() {
-        NavController navController = Navigation.findNavController(this, R.id.nav_host_fragment_content_nav_drawer);
-        navController.addOnDestinationChangedListener(new NavController.OnDestinationChangedListener() {
-            @Override
-            public void onDestinationChanged(@NonNull NavController controller, @NonNull NavDestination destination, @Nullable Bundle arguments) {
-                if (destination.getId() == R.id.nav_home) {
-                    binding.navView.getMenu().findItem(R.id.nav_home).setChecked(true);
-                } else if (destination.getId() == R.id.nav_gallery) {
-                    binding.navView.getMenu().findItem(R.id.nav_gallery).setChecked(true);
-                    setupGallery();
-                } else if (destination.getId() == R.id.nav_slideshow) {
-                    binding.navView.getMenu().findItem(R.id.nav_slideshow).setChecked(true);
-                }
-            }
-        });
+        NavController navController = Navigation.findNavController(this, R.id.content_nav_drawer_fragment);
+
         return NavigationUI.navigateUp(navController, mAppBarConfiguration)
                 || super.onSupportNavigateUp();
     }
 
-    public void setupGallery() {
-        results = db.getWalletContents();
-
-        GalleryFragment galleryFragment = null;
-        System.out.println("HI THERE IM HERE");
-        if (getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_gallery) == null) {
-            System.out.println("ENTERED IF");
-            Fragment fragment = new GalleryFragment();
-            FragmentManager fragmentManager = getSupportFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.nav_host_fragment_gallery, fragment).commit();
-            for (int i = 0; i < fragmentManager.getFragments().size(); i++) {
-                System.out.println(fragmentManager.getFragments().get(i));
-                if (fragmentManager.getFragments().get(i) != null) {
-                    System.out.println("fragment is not null");
-                    galleryFragment = (GalleryFragment) fragmentManager.getFragments().get(i);
-                    System.out.println(fragmentManager.getFragments().get(i).getClass().getName());
-                } else {
-                    System.out.println("fragment is null");
-                }
-            }
-        }
-        System.out.println("HI THERE IM HERE 2");
-        if (galleryFragment == null) {
-            System.out.println("ENTERED IF 2");
-            AlertDialog.Builder builder = new AlertDialog.Builder(NavDrawerActivity.this);
-            builder.setTitle("Error");
-            builder.setMessage("Gallery fragment is null");
-            builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                @Override
-                public void onClick(DialogInterface dialog, int which) {
-                    dialog.dismiss();
-                }
-            });
-        } else {
-
-            constraintLayout = findViewById(R.id.constraint_layoutGallery);
-
-            System.out.println("ENTERED ELSE");
-
-            for (int i = 0; i < results.size(); i++) {
-                System.out.println("size: " + results.size());
-                System.out.println(results.get(i));
-            }
-
-            for (int i = 0; i < results.size(); i = i + 2) {
-                System.out.println("Adding stuff");
-                if (results.get(i) == null || results.get(i + 1) == null) {
-                    System.out.println("result is null...VALUE: " + results.get(i));
-                    continue;
-                }
-                System.out.println(results.get(i));
-                System.out.println(results.get(i + 1));
-                DisplayMoney displayMoney = new DisplayMoney(results.get(i), galleryFragment);
-                displayMoney.setAmount(results.get(i + 1));
-
-//                constraintLayout.addView(displayMoney.getView());
-                galleryFragment.addToView(displayMoney.getView());
-                contents.add(displayMoney);
-            }
-
-        }
-
-        System.out.println("HI THERE IM HERE 3");
-
-    }
-
-    // Methods
     public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
         Toast.makeText(NavDrawerActivity.this, "getting results", Toast.LENGTH_SHORT).show();
         if (ActivityCompat.checkSelfPermission(NavDrawerActivity.this, Manifest.permission.CAMERA) == PackageManager.PERMISSION_GRANTED) {
@@ -221,7 +129,7 @@ public class NavDrawerActivity extends AppCompatActivity {
             if (result.getContents() == null) {
                 Snackbar.make(binding.getRoot(), "Cancelled", Snackbar.LENGTH_SHORT).show();
             } else {
-                Snackbar.make(binding.getRoot(), "Scanned: " + result.getContents(), Snackbar.LENGTH_SHORT).show();
+//                Snackbar.make(binding.getRoot(), "Scanned: " + result.getContents(), Snackbar.LENGTH_SHORT).show();
                 String qr_value = result.getContents();
                 setQRvalue(qr_value);
             }
@@ -229,7 +137,20 @@ public class NavDrawerActivity extends AppCompatActivity {
     }
 
     private void setQRvalue(@NotNull String qr_value) {
+        GalleryFragment galfrag = galleryFragment();
+//        GalleryFragment galfrag = null;
         ArrayList<String> list = new ArrayList<>();
+        String transactionType = "";
+
+        switch (usedButton) {
+            case 1:
+                transactionType = "Deposit";
+
+            case 2:
+                transactionType = "Received";
+                break;
+        }
+
         for (String sa : qr_value.split("-")) {
             list.add(sa);
             System.out.println(sa);
@@ -246,49 +167,83 @@ public class NavDrawerActivity extends AppCompatActivity {
             try {
                 boolean updated = false;
                 db.addWalletContents(list.get(0), Integer.parseInt(list.get(1)));
+                db.addTransaction(Integer.parseInt(list.get(1)), transactionType);
+                if (usedButton == 2) {
+                    SlideshowFragment f = slideshowViewModel.getFragment();
+                    f.addToLayout(db.getLastTransaction());
+                    throw new Exception("added to layout");
+                }
+                ArrayList<DisplayMoney> contents = galfrag.getContents();
                 ArrayList<String> test = db.getWalletContents();
-                for (int i = 0; i < test.size(); i = i + 2) {
-                    for (DisplayMoney displayMoney : contents) {
-                        if (displayMoney.getValue() == Integer.parseInt(test.get(i))) {
-                            displayMoney.setAmount(test.get(i + 1));
-                            updated = true;
-                            break;
+                System.out.println("test: " + test.size());
+                for (DisplayMoney displayMoney : contents) {
+                    for (int i = 0; i < test.size(); i = i + 2) {
+                        System.out.println("displayMoney Value: " + displayMoney.getValue());
+                        System.out.println("test Value: " + test.get(i + 1));
+                        System.out.println("test n: " + test.get(i));
+                        if (displayMoney.getValue() == Integer.parseInt(test.get(i))){
+                            System.out.println("updating");
+
+                            if (displayMoney.getValue() == Integer.parseInt(list.get(1))) {
+                                displayMoney.addToAmount();
+                                galfrag.setAmount(displayMoney.getValue(), displayMoney.getAmount());
+                                Toast.makeText(this, "updated value", Toast.LENGTH_LONG).show();
+                                updated = true;
+                            }
                         }
                     }
-                    if (updated == false) {
-                        DisplayMoney displayMoney = new DisplayMoney(results.get(i), (GalleryFragment) Objects.requireNonNull(getSupportFragmentManager().findFragmentById(R.id.nav_host_fragment_gallery)));
-                        displayMoney.setAmount(test.get(i + 1));
-                        contents.add(displayMoney);
-                        constraintLayout.addView(displayMoney.getView());
-                    }
                 }
+
+               if (!updated) {
+                   System.out.println("adding");
+                   DisplayMoney displayMoney = new DisplayMoney(list.get(1), galfrag);
+                   displayMoney.setAmount("1");
+                   galfrag.addFragment(displayMoney);
+                   Toast.makeText(this, "added a new value", Toast.LENGTH_LONG).show();
+               }
+
             } catch (Exception e) {
-                if (e.getMessage().equals("PRIMARY KEY must be unique (code 19)")) {
-                    Snackbar.make(binding.getRoot(), "This coin was already added", Snackbar.LENGTH_SHORT).show();
-                } else {
-                    AlertDialog.Builder builder = new AlertDialog.Builder(NavDrawerActivity.this);
-                    builder.setTitle("Error");
-                    builder.setMessage("Something went wrong");
-                    builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                        @Override
-                        public void onClick(DialogInterface dialog, int which) {
-                            dialog.dismiss();
-                        }
-                    });
-                    builder.show();
-                    e.printStackTrace();
+                switch (Objects.requireNonNull(e.getMessage())) {
+                    case "added to layout":
+                        break;
+                    case "SQLiteException: PRIMARY KEY must be unique (code 19)":
+                        Snackbar.make(binding.getRoot(), "This coin was already added", Snackbar.LENGTH_SHORT).show();
+                        break;
+                    case "SQLiteException: no such table: wallet_contents":
+                        db.getWalletContents();
+                        break;
+                    default:
+                        AlertDialog.Builder builder = new AlertDialog.Builder(NavDrawerActivity.this);
+                        builder.setTitle("Error");
+                        builder.setMessage(e.getMessage());
+                        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+                            @Override
+
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        });
+                        builder.show();
+                        e.printStackTrace();
+                        break;
                 }
-                AlertDialog.Builder builder = new AlertDialog.Builder(NavDrawerActivity.this);
-                builder.setTitle("Error");
-                builder.setMessage(e.getMessage());
-                builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialog, int which) {
-                        dialog.dismiss();
-                    }
-                });
-                builder.show();
             }
+        }
+    }
+
+    private GalleryFragment galleryFragment() {
+//        Fragment fragment = getSupportFragmentManager().findFragmentById(R.id.somethingtolookat);
+        GalleryFragment fragment = galleryViewModel.getFragment().getValue();
+        System.out.println("fragment: " + fragment);
+        if (fragment != null) {
+            System.out.println("gallery fragment is not null");
+            return fragment;
+        } else {
+            if (usedButton == 2) {
+                return null;
+            }
+            System.out.println("gallery fragment is null");
+            throw new NullPointerException("GalleryFragment is null");
         }
     }
 
@@ -304,4 +259,7 @@ public class NavDrawerActivity extends AppCompatActivity {
         integrator.initiateScan();
     }
 
+    public void setUsedButton(int usedButton) {
+        this.usedButton = usedButton;
+    }
 }

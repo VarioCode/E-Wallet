@@ -2,6 +2,7 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
                                                    xmlns:app="http://schemas.android.com/apk/res-auto"
                                                    xmlns:tools="http://schemas.android.com/tools"
+
                                                    android:layout_width="match_parent"
                                                    android:layout_height="match_parent">
 
@@ -9,14 +10,16 @@
             <LinearLayout
                     android:orientation="horizontal"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent">
+                    android:layout_height="match_parent"
+                    android:id="@+id/moneyLayout"
+                    >
 
                 <androidx.cardview.widget.CardView
                         android:layout_width="match_parent"
                         android:layout_height="84dp"
-                        android:id="@+id/cardView"
-                        android:layout_marginTop="10dp"
-                        android:layout_marginBottom="10dp"
+                        android:id="@+id/moneyCardView"
+                        android:layout_marginTop="5dp"
+                        android:layout_marginBottom="5dp"
                         android:layout_marginLeft="5dp"
                         android:layout_marginRight="5dp"
                         app:cardElevation="10dp"
@@ -26,15 +29,14 @@
 
                     <ImageView
                             android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:src="@drawable/ic_launcher_background"
-                            android:id="@+id/imageView"/>
+                            android:layout_height="match_parent"
+                            android:id="@+id/moneyImage"/>
 
                     <TextView
                             android:text="Money Value"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/moneyValue"
+                            android:id="@+id/TransactionType"
                             android:layout_gravity="center_vertical"
                             android:padding="5dp"
                             android:layout_marginLeft="110dp"
@@ -44,7 +46,7 @@
                             android:text="Amount"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:id="@+id/moneyAmount"
+                            android:id="@+id/transactionDate"
                             android:layout_gravity="center_vertical"
                             android:padding="5dp"
                             android:layout_marginLeft="320dp"

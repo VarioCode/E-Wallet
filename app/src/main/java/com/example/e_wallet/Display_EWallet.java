@@ -1,12 +1,10 @@
 package com.example.e_wallet;
 
-import android.Manifest;
 import android.Manifest.permission;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.os.Bundle;
-import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -14,10 +12,8 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AlertDialog;
 import androidx.core.app.ActivityCompat;
-import androidx.core.content.ContextCompat;
 import com.example.e_wallet.data.DataStore;
 import com.example.e_wallet.data.WalletData;
-import com.example.e_wallet.databinding.ActivityScrollingBinding;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.android.material.tabs.TabLayout;
@@ -28,10 +24,7 @@ import com.example.e_wallet.ui.main.SectionsPagerAdapter;
 import com.example.e_wallet.databinding.ActivityDisplayEwalletBinding;
 import com.google.zxing.integration.android.IntentIntegrator;
 import com.google.zxing.integration.android.IntentResult;
-import org.jetbrains.annotations.NotNull;
-import org.w3c.dom.Text;
 
-import java.security.Permission;
 import java.util.ArrayList;
 
 public class Display_EWallet extends AppCompatActivity {
@@ -174,11 +167,11 @@ public class Display_EWallet extends AppCompatActivity {
     }
 
     private void buildWalletContents(int value, int amount) {
-        View view = getLayoutInflater().inflate(R.layout.money_layout, null);
+        View view = getLayoutInflater().inflate(R.layout.money_view, null);
         view.setId(value);
-        TextView walletNameTV = view.findViewById(R.id.moneyValue);
+        TextView walletNameTV = view.findViewById(R.id.TransactionType);
         walletNameTV.setText(String.valueOf(value + " Aqua Coin"));
-        TextView walletAmountTV = view.findViewById(R.id.moneyAmount);
+        TextView walletAmountTV = view.findViewById(R.id.transactionDate);
         walletAmountTV.setText(String.valueOf(amount));
         linearLayout.addView(view);
         linearLayout.getViewTreeObserver();

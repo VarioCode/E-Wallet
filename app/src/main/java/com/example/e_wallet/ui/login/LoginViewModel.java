@@ -1,5 +1,6 @@
 package com.example.e_wallet.ui.login;
 
+import android.widget.Toast;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
@@ -9,6 +10,7 @@ import com.example.e_wallet.data.LoginRepository;
 import com.example.e_wallet.data.Result;
 import com.example.e_wallet.qrscanner.model.LoggedInUser;
 import com.example.e_wallet.R;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginViewModel extends ViewModel {
 
@@ -33,9 +35,11 @@ public class LoginViewModel extends ViewModel {
         Result<LoggedInUser> result = loginRepository.login(username, password);
 
         if (result instanceof Result.Success) {
+            System.out.println("Login successful");
             LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
+            loginResult.setValue(new LoginResult(new LoggedInUserView(data)));
         } else {
+            System.out.println("Login failed");
             loginResult.setValue(new LoginResult(R.string.login_failed));
         }
     }

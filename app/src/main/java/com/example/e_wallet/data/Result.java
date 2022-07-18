@@ -15,8 +15,10 @@ public class Result<T> {
             return "Success[data=" + success.getData().toString() + "]";
         } else if (this instanceof Result.Error) {
             Result.Error error = (Result.Error) this;
+//            throw new RuntimeException("Error: " + error.getError().toString());
             return "Error[exception=" + error.getError().toString() + "]";
         }
+//        throw new RuntimeException("Unknown subclass of Result.");
         return "";
     }
 

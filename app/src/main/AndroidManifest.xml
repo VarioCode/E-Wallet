@@ -14,9 +14,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.EWallet" >
         <activity
-            android:name=".BottomNavActivity"
+            android:name=".SettingsActivity"
             android:exported="true"
-            android:label="@string/title_activity_bottom_nav" />
+            android:label="@string/title_activity_settings" />
         <activity
             android:name=".Display_EWallet"
             android:exported="true"
@@ -41,6 +41,11 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity
+            android:name=".nav.gallery.slideshow.DisplayQrFragment"
+            android:exported="true"
+            android:label="@string/title_activity_display_qr" >
         </activity>
     </application>
 

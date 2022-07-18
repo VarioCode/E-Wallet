@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                                                   xmlns:app="http://schemas.android.com/apk/res-auto"
+                                                   xmlns:tools="http://schemas.android.com/tools"
+
+                                                   android:layout_width="match_parent"
+                                                   android:layout_height="match_parent">
+
+
+    <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:id="@+id/translayout"
+            >
+
+        <androidx.cardview.widget.CardView
+                android:layout_width="match_parent"
+                android:layout_height="84dp"
+                android:id="@+id/TransactionCardView"
+                android:layout_marginTop="5dp"
+                android:layout_marginBottom="5dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginRight="5dp"
+                app:cardElevation="10dp"
+                app:cardPreventCornerOverlap="true"
+                app:cardUseCompatPadding="false"
+                app:cardCornerRadius="10dp">
+
+            <TextView
+                    android:text="Type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/TransactionType"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:layout_marginLeft="10dp"
+                    />
+
+            <TextView
+                    android:text="amount"
+                    android:layout_width="73dp"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transactionAmount"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:layout_marginLeft="300dp"
+                    />
+
+            <TextView
+                    android:text="date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/transactionDate"
+                    android:layout_gravity="center_vertical"
+                    android:padding="5dp"
+                    android:layout_marginLeft="150dp"
+                    />
+
+        </androidx.cardview.widget.CardView>
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

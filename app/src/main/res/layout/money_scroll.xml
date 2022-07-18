@@ -8,7 +8,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:id="@+id/nestedScrollView2"
-        tools:context=".Display_EWallet">
+        tools:context=".nav.gallery.WalletScrollView">
 
     <LinearLayout
             android:orientation="vertical"

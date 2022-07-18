@@ -13,10 +13,9 @@ import java.util.List;
 public class Database extends SQLiteOpenHelper {
     private static final String DATABASE_NAME = "EWallet.db";
 
-    private static final int moneyValues[] = new int[]{1, 2, 5, 10, 15, 20, 30, 50, 80, 100, 120};
-
     public Database(Context context) {
-        super(context, DATABASE_NAME, null, 3);
+        super(context, DATABASE_NAME, null, 5);
+
     }
 
     @Override
@@ -24,6 +23,33 @@ public class Database extends SQLiteOpenHelper {
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS walletData (id INTEGER PRIMARY KEY AUTOINCREMENT, balance INTEGER)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS transactionData (id INTEGER PRIMARY KEY AUTOINCREMENT, amount INTEGER, type TEXT, date DATETIME)");
         sqLiteDatabase.execSQL("CREATE TABLE IF NOT EXISTS walletContents (id INTEGER PRIMARY KEY AUTOINCREMENT, serialnumber TEXT UNIQUE, value INTEGER)");
+        sqLiteDatabase.execSQL("INSERT INTO walletData (balance) VALUES (0)");
+    }
+
+    public int calcBalance() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery("SELECT SUM(value) FROM walletContents", null);
+        int balance = 0;
+        if (cursor.moveToFirst()) {
+            balance = cursor.getInt(0);
+        }
+        cursor.close();
+        updateBalance(balance);
+        return balance;
+    }
+
+    public int getBalance() {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT balance FROM walletData", null);
+        res.moveToFirst();
+        try {
+            int balance = res.getInt(0);
+            res.close();
+            return balance;
+        } catch (Exception e) {
+            return 0;
+        }
+
     }
 
     public void updateBalance(int balance) {
@@ -36,6 +62,41 @@ public class Database extends SQLiteOpenHelper {
         SQLiteDatabase db = getWritableDatabase();
         db.execSQL("INSERT INTO transactionData (amount, type, date) VALUES (" + amount + ", '" + type + "', datetime('now'))");
         db.close();
+    }
+
+    public List<TransactionData> getAllTransactions() {
+        List<TransactionData> transactions = new ArrayList<>();
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM transactionData ORDER BY date", null);
+        res.moveToFirst();
+        while (!res.isAfterLast()) {
+            transactions.add(new TransactionData(res.getInt(0), res.getInt(1), res.getString(2), res.getString(3)));
+            res.moveToNext();
+        }
+        res.close();
+        return transactions;
+    }
+
+    public TransactionData getLastTransaction() {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM transactionData ORDER BY date DESC LIMIT 1", null);
+        res.moveToFirst();
+        TransactionData transaction = new TransactionData(res.getInt(0), res.getInt(1), res.getString(2), res.getString(3));
+        res.close();
+        return transaction;
+    }
+
+    public List<TransactionData> getRecentTransactions(int numTransactions) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT * FROM transactionData ORDER BY date DESC LIMIT " + numTransactions, null);
+        List<TransactionData> transactions = new ArrayList<>();
+        if (res.moveToFirst()) {
+            do {
+                transactions.add(new TransactionData(res.getInt(0), res.getInt(1), res.getString(2), res.getString(3)));
+            } while (res.moveToNext());
+        }
+        res.close();
+        return transactions;
     }
 
     public void addWalletContents(String serialnr, int v) throws Exception {
@@ -57,15 +118,29 @@ public class Database extends SQLiteOpenHelper {
         }
 
         System.out.println("Inserted: " + insert);
-
+        calcBalance();
         db.close();
     }
 
     public void removeWalletContents(String serialnr) {
         SQLiteDatabase db = getWritableDatabase();
-        String sql = "DELETE FROM walletContents WHERE serialnr = '" + serialnr + "'";
+        String sql = "DELETE FROM walletContents WHERE serialnumber = '" + serialnr + "'";
         db.execSQL(sql);
+        calcBalance();
         db.close();
+    }
+
+    public String getCoin(int value) {
+        SQLiteDatabase db = getReadableDatabase();
+        Cursor res = db.rawQuery("SELECT serialnumber FROM walletContents WHERE value = " + value + " LIMIT 1", null);
+        String coins = null;
+        if (res.moveToFirst()) {
+            do {
+                coins = res.getString(0);
+            } while (res.moveToNext());
+        }
+        res.close();
+        return coins;
     }
 
     private boolean checkIfExists(String serialnr) {
@@ -97,7 +172,7 @@ public class Database extends SQLiteOpenHelper {
                 new String[]{"value", "COUNT (*) AS amount"},
                 null,
                 null,
-                null,
+                "value",
                 null,
                 null
         );

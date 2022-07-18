@@ -24,6 +24,7 @@ import com.example.e_wallet.HomeScreenScroll;
 import com.example.e_wallet.data.DataStore;
 import com.example.e_wallet.databinding.ActivityLoginBinding;
 import com.example.e_wallet.nav.gallery.NavDrawerActivity;
+import com.google.android.material.snackbar.Snackbar;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -54,6 +55,20 @@ public class LoginActivity extends AppCompatActivity {
         final ProgressBar loadingProgressBar = binding.loading;
 
         loginButton.setText("Sign in");
+        loginButton.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Snackbar snackbar = Snackbar.make(v, "Going go special account creation menu", Snackbar.LENGTH_LONG);
+                snackbar.setAction("Dismiss", null).setAction("Dismiss", new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+                                snackbar.dismiss();
+                            }
+                        });
+                snackbar.show();
+                return true;
+            }
+        });
 
         loginViewModel.getLoginFormState().observe(this, new Observer<LoginFormState>() {
             @Override
@@ -137,19 +152,15 @@ public class LoginActivity extends AppCompatActivity {
 //        // TODO : initiate successful logged in experience
 //        Toast.makeText(getApplicationContext(), welcome, Toast.LENGTH_LONG).show();
         finish();
-
-        if (model.getDisplayName().equals("admin")) {
-            editor.putString("username", "admin");
-            editor.putString("email", "admin@example.com");
+        if (model != null && model.getUserData() != null) {
+            editor.putString("username", model.getUserData().getDisplayName());
+            editor.putString("email", model.getUserData().getEmail());
+            editor.putString("id", model.getUserData().getUserId());
             editor.commit();
+            Toast.makeText(getApplicationContext(), model.getUserData().getUserId(), Toast.LENGTH_SHORT).show();
             Intent intent = new Intent(getApplicationContext(), NavDrawerActivity.class);
             startActivity(intent);
         }
-
-
-//        Intent startUp = new Intent(this, NavDrawerActivity.class);
-//        startActivity(startUp);
-
     }
 
     private void showLoginFailed(@StringRes Integer errorString) {

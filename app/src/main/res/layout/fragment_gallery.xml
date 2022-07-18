@@ -8,13 +8,6 @@
         android:id="@+id/constraint_layoutGallery"
         tools:context=".nav.gallery.GalleryFragment">
 
-    <fragment
-            android:id="@+id/nav_host_fragment_gallery"
-            android:name="androidx.navigation.fragment.NavHostFragment"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            />
-
     <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fabGallary"
             android:layout_width="wrap_content"

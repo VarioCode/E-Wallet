@@ -14,11 +14,14 @@ public class DisplayMoneyViewModel extends ViewModel {
     }
 
     public LiveData<String> getText() {
+        System.out.println("current text element: " + mText.getValue());
         return mText;
     }
 
     public void setText(String text) {
+        System.out.println("Set text to: " + text);
         mText.setValue(text);
+        System.out.println("Text set too: " + mText.getValue());
     }
 
 }

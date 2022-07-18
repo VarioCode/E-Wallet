@@ -5,34 +5,61 @@
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:id="@+id/transactionFragmentConstraint"
         tools:context=".nav.gallery.slideshow.SlideshowFragment">
 
-    <TextView
-            android:id="@+id/text_slideshow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="8dp"
-            android:textAlignment="center"
-            android:textSize="20sp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintBottom_toBottomOf="parent"/>
-
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fabSlideshow"
+    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/fabStartTransaction"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="bottom|end"
-            android:layout_marginEnd="@dimen/fab_margin"
+            android:layout_gravity="end"
+            android:layout_marginEnd="16dp"
             android:layout_marginBottom="16dp"
-            app:srcCompat="@drawable/ic_baseline_camera_24"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
+            android:text="Transactions"
+            app:icon="@drawable/ic_baseline_wallet_24"
             app:layout_constraintBottom_toBottomOf="parent"
-            app:layout_constraintHorizontal_bias="1.0"
-            app:layout_constraintVertical_bias="1.0"/>
+            app:layout_constraintEnd_toEndOf="parent"/>
+
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/send_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/fabStartTransaction"
+            app:layout_constraintEnd_toEndOf="@+id/fabStartTransaction"
+            app:srcCompat="@drawable/ic__26692_send_icon"/>
+
+    <TextView
+            android:id="@+id/send_fab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Send money"
+            app:layout_constraintBottom_toBottomOf="@+id/send_fab"
+            app:layout_constraintEnd_toStartOf="@+id/send_fab"
+            app:layout_constraintTop_toTopOf="@+id/send_fab" />
+
+    <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/recieve_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="24dp"
+            app:srcCompat="@drawable/ic_baseline_camera_24"
+            app:fabSize="normal"
+            app:layout_constraintBottom_toTopOf="@+id/send_fab"
+            app:layout_constraintEnd_toEndOf="@+id/send_fab"
+            app:layout_constraintStart_toStartOf="@+id/send_fab"/>
+
+    <TextView
+            android:id="@+id/recieve_fab_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:text="Recieve money"
+            app:layout_constraintBottom_toBottomOf="@+id/recieve_fab"
+            app:layout_constraintEnd_toStartOf="@+id/recieve_fab"
+            app:layout_constraintTop_toTopOf="@+id/recieve_fab" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>
